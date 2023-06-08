@@ -1,60 +1,96 @@
 <script>
-    import Icon from "../../../../components/Icon.svelte";
-    let newItem = "";
+    let newName = "";
+    let newSum;
     let todoList = [];
     function add() {
-        if (newItem !== "") {
+        if (newName !== "") {
             todoList = [
                 ...todoList,
                 {
-                    task: newItem,
+                    name: newName,
+                    sum: newSum,
                     completed: false,
                 },
             ];
-            newItem = "";
-        }
+            console.log({ todoList });
+            newName = "";
+            newSum = "";
+    }
     }
     function remove(index) {
         todoList.splice(index, 1);
         todoList = todoList;
     }
-    function complete(index) {
-        todoList[index].completed = !todoList[index].completed;
-    }
 </script>
 
 <main>
-    <h1>My to-do list</h1>
+    <h1>Учёт расходов</h1>
     <form on:submit|preventDefault={add}>
-        <input bind:value={newItem} placeholder="Enter to-do" />
-        <button class="add-todo" on:click={add}><span>+</span></button>
+        <label for="">название:</label>
+        <input bind:value={newName} />
+        <label for="">сумма:</label>
+        <input bind:value={newSum} />
+        <button class="add-todo" on:click={add}><span>Добавить</span></button>
     </form>
-    <div class="todos">
+    <table class="todos">
+        <tr class="headtable">
+            <td class="name">название</td>
+            <td class="sum">сумма </td>
+            <td class="do">действие</td>
+        </tr>
         {#each todoList as item, index}
-            <div class="todo" class:completed={item.completed}>
-                <span class="todo__text">{item.task}</span>
-                <div class="todo__buttons">
-                    <button class="complete" on:click={() => complete(index)}>
-                        <Icon name="check-mark" />
-                    </button>
+            <tr class="todo" class:completed={item.completed}>
+                <td class="todo__text">{item.name} </td>
+                <td class="todo__text">{item.sum} </td>
+                <td class="todo__buttons">
                     <button class="delete" on:click={() => remove(index)}>
-                        <Icon name="delete" />
+                        удалить
                     </button>
-                </div>
-            </div>
+                </td>
+            </tr>
         {/each}
-    </div>
+    </table>
 </main>
 
 <style>
-    main {
+    form {
+        width: 100%;
+        max-width: 100px;
+        display: flex;
+        margin-bottom: 1rem;
+        flex-direction: column;
+    }
+    .add-todo {
+        background-color: rgb(49, 221, 49);
+        border-radius: 20px;
+        margin-top: 20px;
+    }
+    input {
+        border-radius: 10px;
+        border-color: gray;
+    }
+    table {
+        padding: 0px;
+    }
+    td {
+        margin: 0px;
+        width: 300px;
+        border: solid 1px;
+    }
+    .headtable {
+        background-color: rgba(180, 178, 178, 0.74);
+    }
+    .delete {
+        background-color: rgb(49, 221, 49);
+        border-radius: 20px;
+    }
+
+    /* main {
         display: flex;
         flex-direction: column;
-        align-items: center;
         min-height: 100%;
         padding: 5vmin;
         box-sizing: border-box;
-        background: antiquewhite;
     }
     form {
         width: 100%;
@@ -66,13 +102,10 @@
     input {
         flex-grow: 1;
         width: 0;
-        border: none;
-        border-bottom: 1px solid black;
-        background: transparent;
-        box-shadow: none;
+        border-radius: 10px;
+        border-color: rgb(148, 148, 148);
         font-size: 1.2rem;
         margin: 0;
-        outline: none;
     }
     .todos {
         width: 100%;
@@ -102,7 +135,7 @@
         flex-shrink: 0;
     }
     h1 {
-        text-align: center;
+        text-align: left;
         font-size: 1.5rem;
         margin: 2em 0;
     }
@@ -115,11 +148,6 @@
         color: brown;
         transition: color 100ms ease-out;
     }
-    button.complete,
-    button.complete:hover {
-        color: cadetblue;
-        transition: color 100ms ease-out;
-    }
     .todo.completed {
         color: slategray;
     }
@@ -128,5 +156,5 @@
     }
     .todo.completed button {
         color: silver;
-    }
+    } */
 </style>

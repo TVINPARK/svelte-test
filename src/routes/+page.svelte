@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Имя Фамилия</title>
+    <title>Арсений Бойко</title>
 </svelte:head>
 <div class="container">
     <div class="info">
