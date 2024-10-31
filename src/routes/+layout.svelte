@@ -8,7 +8,7 @@
         {
             title: "Блог",
             href: "/blog",
-            isShow: true,
+            isShow: false,
         },
         {
             title: "Портфолио",
